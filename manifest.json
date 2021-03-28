@@ -1,0 +1,44 @@
+{
+    "name": "代税宝",
+    "description": "代税宝自动化插件",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_icon": "logo.png",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://127.0.0.1:8898/*"
+            ],
+            "run_at": "document_end",
+            "js": ["contentScriptDai.js"]
+        },
+        {
+            "matches": [
+                "https://etax.sichuan.chinatax.gov.cn/*"
+            ],
+            "run_at": "document_start",
+            "js": [
+                "jquery-3.6.0.min.js",
+                "contentScriptEtax.js"
+            ]
+        }
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "app",
+        "storage",
+        "activeTab",
+        "scripting",
+        "tabs",
+        "message",
+        "action",
+        "debugger",
+        "https://etax.sichuan.chinatax.gov.cn/*",
+        "https://zhihu.com"
+    ]
+}
