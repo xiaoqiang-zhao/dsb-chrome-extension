@@ -1,4 +1,10 @@
 // 在后台常驻
+
+// 间隔时间 800 毫秒
+const spaceTime = 3000; // 800;
+const TYPE = 'userName';
+let target;
+
 chrome.runtime.onMessage.addListener((request, sender) => {
     if (request.name === 'taskList') {
         chrome.action.setBadgeText({
@@ -10,42 +16,55 @@ chrome.runtime.onMessage.addListener((request, sender) => {
             active: true
         });
     }
-    if (request.name === 'login') {
-        attach(request, sender);
+    target = target = {
+        extensionId: chrome.runtime.id,
+        tabId: sender.tab.id
+    };
+
+    if (request.name === 'login-step-1') {
+        // 模拟信用代码输入
+        attach(() => {
+            mousePressed(request, () => {
+                // 信用代码
+                request.text = '92513424MA628FLN6B';
+                insertText(request, () => {
+                    mouseReleased(request);
+                });
+            });
+        });
+        // 模拟密码输入
+        setTimeout(() => {
+            request.position.y += 53;
+            mousePressed(request, () => {
+                setTimeout(() => {
+                    request.text = 'zhaozhirui123';
+                    insertText(request, () => {
+                        mouseReleased(request);
+                    });
+                }, spaceTime);
+            });
+        }, spaceTime);
+    }
+    if (request.name === 'login-step-2') {
+        mousePressed(request, () => {
+            setTimeout(() => {
+                mouseReleased(request);
+            }, spaceTime);
+        });
     }
 });
 
-// 间隔时间 800 毫秒
-const spaceTime = 800;
-const TYPE = 'userName';
-
-function attach(request, sender) {
-    chrome.debugger.attach({
-        extensionId: chrome.runtime.id,
-        tabId: sender.tab.id
-    }, '1.3', () => {
+function attach(cb) {
+    chrome.debugger.attach(target, '1.3', () => {
         if (chrome.runtime.lastError) {
-            // oh no!
+            console.log(chrome.runtime.lastError);
         }
-        else {
-            // 信用代码
-            request.text = '92513424MA628FLN6B';
-            mousePressed(request, sender, TYPE);
-            // 登录密码
-            setTimeout(() => {
-                request.text = 'zhaozhirui123';
-                request.position.y += 53;
-                mousePressed(request, sender);
-            }, spaceTime);
-        }
+        cb & cb();
     });
 }
 
-function mousePressed(request, sender, type) {
-    chrome.debugger.sendCommand({
-        extensionId: chrome.runtime.id,
-        tabId: sender.tab.id
-    }, 'Input.dispatchMouseEvent', {
+function mousePressed(request, cb) {
+    chrome.debugger.sendCommand(target, 'Input.dispatchMouseEvent', {
         type:'mousePressed',
         // 左键点击
         button:'left',
@@ -54,37 +73,28 @@ function mousePressed(request, sender, type) {
         y: request.position.y
     }, () => {
         if (chrome.runtime.lastError) {
-            // oh no!
+            console.log(chrome.runtime.lastError);
         }
-        else {
-            setTimeout(() => {
-                insertText(request, sender, type);
-            }, type === TYPE ? 0 : spaceTime);
-        }
+        cb & cb();
     });
 }
 
-function insertText(request, sender) {
-    chrome.debugger.sendCommand({
-        extensionId: chrome.runtime.id,
-        tabId: sender.tab.id
-    }, "Input.insertText", {
+function insertText(request, cb) {
+    chrome.debugger.sendCommand(target, "Input.insertText", {
         text: request.text
     }, () => {
         if (chrome.runtime.lastError) {
-            // oh no!
+            console.log(chrome.runtime.lastError);
         }
-        else {
-            mouseReleased(request, sender);
-        }
+        cb & cb();
     });
 }
 
-function mouseReleased(request, sender) {
-    chrome.debugger.sendCommand({
-        extensionId: chrome.runtime.id,
-        tabId: sender.tab.id
-    }, "Input.dispatchMouseEvent", {
-        type: 'mouseReleased'
+function mouseReleased(request) {
+    chrome.debugger.sendCommand(target, "Input.dispatchMouseEvent", {
+        type: 'mouseReleased',
+        // 输入框的坐标
+        x: request.position.x,
+        y: request.position.y
     });
 }
