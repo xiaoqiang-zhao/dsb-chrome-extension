@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
         $('.tabList').eq(1).click();
     }, spaceTime * 2);
     setTimeout(() => {
-        debugger
         const linkDom = $('[data-title="税费申报及缴纳"]');
         const link = linkDom.attr('data-url');
         window.location.href = 'https://etax.sichuan.chinatax.gov.cn/' + link;

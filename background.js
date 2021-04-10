@@ -47,6 +47,15 @@ chrome.runtime.onMessage.addListener((request, sender) => {
             });
         }, spaceTime);
     }
+
+    // 模拟点击
+    // if (request.name === 'clickSimulator') {
+    //     attach(() => {
+    //         mousePressed(request, () => {
+    //             mouseReleased(request);
+    //         });
+    //     });
+    // }
 });
 
 function attach(cb) {
