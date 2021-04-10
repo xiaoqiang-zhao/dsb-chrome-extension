@@ -2,13 +2,15 @@
 
 // 间隔时间 800 毫秒
 const spaceTime = 3000; // 800;
-const TYPE = 'userName';
 let target;
 
 chrome.runtime.onMessage.addListener((request, sender) => {
-    if (request.name === 'taskList') {
+    debugger
+    // 初始化 popup
+    if (request.name === 'createTaskList') {
+        debugger
         chrome.action.setBadgeText({
-            text: request.data.length.toString()
+            text: request.data.list.length.toString()
         });
 
         chrome.tabs.create({
@@ -16,7 +18,7 @@ chrome.runtime.onMessage.addListener((request, sender) => {
             active: true
         });
     }
-    target = target = {
+    target = {
         extensionId: chrome.runtime.id,
         tabId: sender.tab.id
     };
@@ -26,7 +28,7 @@ chrome.runtime.onMessage.addListener((request, sender) => {
         attach(() => {
             mousePressed(request, () => {
                 // 信用代码
-                request.text = '92513424MA628FLN6B';
+                request.text = request.currentTaskData.creditCode;
                 insertText(request, () => {
                     mouseReleased(request);
                 });
@@ -37,20 +39,13 @@ chrome.runtime.onMessage.addListener((request, sender) => {
             request.position.y += 53;
             mousePressed(request, () => {
                 setTimeout(() => {
-                    request.text = 'zhaozhirui123';
+                    request.text = request.currentTaskData.password;
                     insertText(request, () => {
                         mouseReleased(request);
                     });
                 }, spaceTime);
             });
         }, spaceTime);
-    }
-    if (request.name === 'login-step-2') {
-        mousePressed(request, () => {
-            setTimeout(() => {
-                mouseReleased(request);
-            }, spaceTime);
-        });
     }
 });
 
