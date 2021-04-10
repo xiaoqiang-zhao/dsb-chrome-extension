@@ -24,6 +24,16 @@
                 "contentScrips/jquery-3.6.0.min.js",
                 "contentScrips/etaxSichuanLogin.js"
             ]
+        },
+        {
+            "matches": [
+                "https://etax.sichuan.chinatax.gov.cn/bszm-web/apps/views/publicPage/desk.html*"
+            ],
+            "run_at": "document_start",
+            "js": [
+                "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/etaxSichuanDesk.js"
+            ]
         }
     ],
     "background": {
