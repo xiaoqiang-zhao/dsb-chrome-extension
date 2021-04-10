@@ -44,6 +44,16 @@
                 "contentScrips/jquery-3.6.0.min.js",
                 "contentScrips/etaxSichuanMenuFunctions.js"
             ]
+        },
+        {
+            "matches": [
+                "https://etax.chongqing.chinatax.gov.cn/"
+            ],
+            "run_at": "document_start",
+            "js": [
+                "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/etaxChongqingLogin.js"
+            ]
         }
     ],
     "background": {

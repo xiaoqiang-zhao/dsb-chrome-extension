@@ -46,7 +46,7 @@ function doLogin(loginBoxContainer, currentTaskData) {
         const userName = document.getElementById('userName');
         // 登陆第一步: 社会信用代码 + 密码
         chrome.runtime.sendMessage({
-            name: 'login-step-1',
+            name: 'loginSichuan',
             position: {
                 x: getElementLeft(userName) + 15,
                 y: getElementTop(userName) + 15

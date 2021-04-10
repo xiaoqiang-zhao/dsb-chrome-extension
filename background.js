@@ -2,19 +2,25 @@
 
 // 间隔时间 800 毫秒
 const spaceTime = 3000; // 800;
+// 不同地区的税务局网站
+const regionTypeUrlMap = [
+    '占位文字',
+    // 四川
+    'https://etax.sichuan.chinatax.gov.cn',
+    // 重庆
+    'https://etax.chongqing.chinatax.gov.cn'
+];
 let target;
 
 chrome.runtime.onMessage.addListener((request, sender) => {
-    debugger
     // 初始化 popup
     if (request.name === 'createTaskList') {
-        debugger
         chrome.action.setBadgeText({
             text: request.data.list.length.toString()
         });
 
         chrome.tabs.create({
-            url: 'https://etax.sichuan.chinatax.gov.cn',
+            url: regionTypeUrlMap[request.data.regionType],
             active: true
         });
     }
@@ -23,7 +29,7 @@ chrome.runtime.onMessage.addListener((request, sender) => {
         tabId: sender.tab.id
     };
 
-    if (request.name === 'login-step-1') {
+    if (request.name === 'loginSichuan') {
         // 模拟信用代码输入
         attach(() => {
             mousePressed(request, () => {
