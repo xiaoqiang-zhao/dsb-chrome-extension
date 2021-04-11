@@ -54,6 +54,16 @@
                 "contentScrips/jquery-3.6.0.min.js",
                 "contentScrips/etaxChongqingLogin.js"
             ]
+        },
+        {
+            "matches": [
+                "https://etax.chongqing.chinatax.gov.cn/sword*"
+            ],
+            "run_at": "document_start",
+            "js": [
+                "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/etaxChongqingSword.js"
+            ]
         }
     ],
     "background": {

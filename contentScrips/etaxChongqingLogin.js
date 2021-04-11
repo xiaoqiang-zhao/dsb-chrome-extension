@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /**
- * 执行登录
+ * 执行登录(重庆税务局)
  */
 function doLogin() {
     // 判断是否有需要自动执行的任务
