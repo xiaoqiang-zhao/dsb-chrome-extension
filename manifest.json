@@ -64,7 +64,29 @@
                 "contentScrips/jquery-3.6.0.min.js",
                 "contentScrips/etaxChongqingSword.js"
             ]
+        },
+        {
+            "matches": [
+                "https://wbjr.chongqing.chinatax.gov.cn:8888/sbzx-web/apps/views/sb_sdsA_yj_new_*"
+            ],
+            "run_at": "document_start",
+            "js": [
+                "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/etaxChongqingSb.js"
+            ]
+        },
+        {
+            "matches": [
+                "https://etax.sichuan.chinatax.gov.cn/sbzx-web/apps/views/sb_sdsA_yj_new_*"
+            ],
+            "run_at": "document_start",
+            "js": [
+                "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/etaxChongqingSb.js"
+            ]
         }
+
+        
     ],
     "background": {
         "service_worker": "background.js"
