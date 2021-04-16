@@ -69,8 +69,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }, spaceTime * 4);
     // 选中操作
     setTimeout(() => {
-        $('#mini-grid-table-bodyjmGrid_7 tr').eq(2).find('input').prop('checked', true);
-        $('#mini-grid-table-bodyjmGrid_7 tr').eq(2).find('input').attr('checked', '');
+        // $('#mini-grid-table-bodyjmGrid_7 tr').eq(2).find('input').prop('checked', true);
+        // $('#mini-grid-table-bodyjmGrid_7 tr').eq(2).find('input').attr('checked', '');
+        const checketbox = $('#mini-grid-table-bodyjmGrid_7 tr').eq(2).find('input');
+        chrome.runtime.sendMessage({
+            name: 'click',
+            x: getElementLeft(checketbox) + 3,
+            y: getElementTop(checketbox) + 3
+        });
     }, spaceTime * 5);
     // 点击保存
     setTimeout(() => {
@@ -80,34 +86,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // 打开  第一个 Tab 的 第二个弹框 ...
 
     // 切换到第二个 tab
-    setTimeout(() => {
-        $('.mini-tabs-header td').eq(3).click();
-        // $('#yh_1 input').eq(0).val('其他行业研发设备加速折旧');
-        setTimeout(() => {
-            // 点击下拉框，发现第一次没办法触发
-            // $('#yh_1 .mini-buttonedit-button').click();
-            // $('#mini-55 tr').eq(1).click();
-
-            // 尝试直接输入 “其他行业研发设备加速折旧”
-            // 直接用赋值的方式触发不了后面可输入事件
-            // $('#yh_1 input').val('其他行业研发设备加速折旧');
-
-            // 用事件模拟
-
-        }, 20);
-    }, spaceTime * 7);
-    // $('#yh_1 input').eq(0).val('其他行业研发设备加速折旧');
-
-    setTimeout(() => {
-        window.qysdsyjbA.saveJmxx('7');
-    }, spaceTime * 2);
-
     // setTimeout(() => {
-    //     btns.eq(0).click();
-    // }, spaceTime * 3);
-    // setTimeout(() => {
-    //     btns.eq(0).click();
-    // }, spaceTime * 5);
+    //     $('.mini-tabs-header td').eq(3).click();
+    //     // $('#yh_1 input').eq(0).val('其他行业研发设备加速折旧');
+    //     setTimeout(() => {
+    //         // 点击下拉框，发现第一次没办法触发
+    //         // $('#yh_1 .mini-buttonedit-button').click();
+    //         // $('#mini-55 tr').eq(1).click();
+
+    //         // 尝试直接输入 “其他行业研发设备加速折旧”
+    //         // 直接用赋值的方式触发不了后面可输入事件
+    //         // $('#yh_1 input').val('其他行业研发设备加速折旧');
+
+    //         // 用事件模拟
+    //         const input = $('#yh_1 input')[0];
+    //         chrome.runtime.sendMessage({
+    //             name: 'inputText',
+    //             text: '其他行业研发设备加速折旧',
+    //             x: getElementLeft(input) + 5,
+    //             y: getElementTop(input) + 5
+    //         });
+    //     }, 200);
+    //     setTimeout(() => {
+    //         chrome.runtime.sendMessage({
+    //             name: 'click',
+    //             x: 1,
+    //             y: 1
+    //         });
+    //     }, 400);
+    // }, spaceTime * 1);
 });
 
 
