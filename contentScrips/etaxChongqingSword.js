@@ -16,14 +16,48 @@ document.addEventListener('DOMContentLoaded', function() {
     }, spaceTime * 2);
 
     setTimeout(() => {
-
+        // 跳转企业所得税
+        // $.ajax({
+        //     type: 'post',
+        //     data: 'postData={"fqxdm":"112005","ctrl":"WBLoginCtrl_queryYhQxTree"}',
+        //     url: 'ajax.sword?ctrl=WBLoginCtrl_queryYhQxTree',
+        //     dataType: "json",
+        //     success(resData) {
+        //         const data = JSON.parse(resData.data[0].value)[7];
+    
+        //         $.ajax({
+        //             type: 'post',
+        //             data: {"url": 'null', "wbxtDm": data.wbxtDm, "qxDm" : data.qxDm},
+        //             url: '/download.sword?ctrl=LogindesCtrl_queryKeyValue',
+        //             dataType: "json",
+        //             success (resData) {
+        //                 const keyValue = resData.key;
+        //                 let reUrl = resData.reUrl;
+        //                 const param = "cssParam=" + encodeURIComponent(keyValue) + "&xtBz=WSBS&wbxtDm=" + data.wbxtDm + "&";
+        //                 reUrl += "&" + param + "r=" + Math.random();
+    
+        //                 const h1 = screen.availHeight - 40;
+        //                 const w1 = screen.availWidth;
+    
+        //                 window.open(decodeURI(reUrl), "", "height=" + h1 + ",width=" + w1 + ",top=0,left=0,toolbar=no,menubar=no,scrollbars=yes,resizable=yes,location=no,status=no");
+        //             }
+        //         });
+        //     }
+        // });
+        // 跳转“增值税小规模纳税人申报”
         $.ajax({
             type: 'post',
             data: 'postData={"fqxdm":"112005","ctrl":"WBLoginCtrl_queryYhQxTree"}',
             url: 'ajax.sword?ctrl=WBLoginCtrl_queryYhQxTree',
             dataType: "json",
             success(resData) {
-                const data = JSON.parse(resData.data[0].value)[7];
+                const list = JSON.parse(resData.data[0].value);
+                let data;
+                list.forEach((item, index) => {
+                    if (item.qxMs === '增值税小规模纳税人申报') {
+                        data = item;
+                    }
+                });
     
                 $.ajax({
                     type: 'post',
