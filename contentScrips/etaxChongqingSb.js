@@ -3,85 +3,91 @@
  */
 // 间隔时间 800 毫秒
 const spaceTime = 3000;
+let i = 1;
 
 document.addEventListener('DOMContentLoaded', function() {
+    // 如果有弹框点“确认”
     setTimeout(() => {
         const btn = $('#mini-183 span');
         if (btn.length > 0) {
             btn.click();
         }
-        setTimeout(() => {
-            const btn = $('#mini-185 span');
-            if (btn.length > 0) {
-                btn.click();
-            }
-            // spaceTime 2
-        }, spaceTime);
-    // spaceTime 1
-    }, spaceTime);
+    }, spaceTime * i++);
+    setTimeout(() => {
+        const btn = $('#mini-185 span');
+        if (btn.length > 0) {
+            btn.click();
+        }
+    }, spaceTime * i++);
 
+    // 为第一个 tab 填数
     setTimeout(() => {
         chrome.storage.sync.get('taskData', ({
             taskData
         }) => {
-                // taskData[0].businessIncomeTax
-                // 企业所得税
-                const businessIncomeTax = {
-                    // 季初从业人数
-                    jobStart: 10,
-                    // 季末从业人数
-                    jobEnd: 12,
-                    // 季初资产总额
-                    propertyStart: 110,
-                    // 季末资产总额
-                    propertyEnd: 120,
-                    // 营业收入
-                    operatingIncome: 20000,
-                    // 营业成本
-                    operatingCosts: 15000,
-                    // 利润总额
-                    totalProfit: 5000,
-                    // 减：不征税收入
-                    subtract: 500
-                };
-                // 项目，从业人数 + 总资产
-                $('#001_9_1').val(businessIncomeTax.jobStart);
-                $('#001_9_2').val(businessIncomeTax.jobStart);
-                $('#001_10_1').val(businessIncomeTax.propertyStart);
-                $('#001_10_2').val(businessIncomeTax.propertyEnd);
+            // taskData[0].businessIncomeTax
+            // 企业所得税
+            const businessIncomeTax = {
+                // 季初从业人数
+                jobStart: 10,
+                // 季末从业人数
+                jobEnd: 12,
+                // 季初资产总额
+                propertyStart: 110,
+                // 季末资产总额
+                propertyEnd: 120,
+                // 营业收入
+                operatingIncome: 20000,
+                // 营业成本
+                operatingCosts: 15000,
+                // 利润总额
+                totalProfit: 5000,
+                // 减：不征税收入
+                subtract: 500
+            };
+            // 项目，从业人数 + 总资产
+            $('#001_9_1').val(businessIncomeTax.jobStart);
+            $('#001_9_2').val(businessIncomeTax.jobStart);
+            $('#001_10_1').val(businessIncomeTax.propertyStart);
+            $('#001_10_2').val(businessIncomeTax.propertyEnd);
 
-                // 选中 "国家限制或禁止行业" 否
-                $('#gjxzhjzhy input[value="N"]').attr('checked', '');
+            // 选中 "国家限制或禁止行业" 否
+            $('#gjxzhjzhy input[value="N"]').attr('checked', '');
 
-                // 预缴税款计算
-                $('#001_14_5').val(businessIncomeTax.operatingIncome);
-                $('#001_15_5').val(businessIncomeTax.operatingCosts);
-                $('#001_16_5').val(businessIncomeTax.totalProfit);
-                $('#001_18_5').val(businessIncomeTax.subtract);
-            
+            // 预缴税款计算
+            $('#001_14_5').val(businessIncomeTax.operatingIncome);
+            $('#001_15_5').val(businessIncomeTax.operatingCosts);
+            $('#001_16_5').val(businessIncomeTax.totalProfit);
+            $('#001_18_5').val(businessIncomeTax.subtract);
         });
-    }, spaceTime * 3);
+    }, spaceTime * i++);
     
     // 打开  第一个 Tab 的 第一个弹框
     setTimeout(() => {
-        const btns = $('.txt-indent-2 span');
-        btns.eq(0).click();
-    }, spaceTime * 4);
+        // const btns = $('.txt-indent-2 span');
+        $('.txt-indent-2 span')[0].click();
+    }, spaceTime * i++);
     // 选中操作
     setTimeout(() => {
-        // $('#mini-grid-table-bodyjmGrid_7 tr').eq(2).find('input').prop('checked', true);
-        // $('#mini-grid-table-bodyjmGrid_7 tr').eq(2).find('input').attr('checked', '');
-        const checketbox = $('#mini-grid-table-bodyjmGrid_7 tr').eq(2).find('input');
+        const checketbox = $('#mini-grid-table-bodyjmGrid_7 tr').eq(2).find('input')[0];
         chrome.runtime.sendMessage({
             name: 'click',
             x: getElementLeft(checketbox) + 3,
             y: getElementTop(checketbox) + 3
         });
-    }, spaceTime * 5);
+    }, spaceTime * i++);
+    // 选中后点击单元格
+    setTimeout(() => {
+        $('#mini-grid-table-bodyjmGrid_7 tr').eq(2).find('td')[4].click();
+    }, spaceTime * i++);
+    // 向单元格中填数
+    
+
+
     // 点击保存
     setTimeout(() => {
-        $('#jmWin_7 .btn-blue').click();
-    }, spaceTime * 6);
+        // $('#jmWin_7 .btn-blue').click();
+    }, spaceTime * i++);
 
     // 打开  第一个 Tab 的 第二个弹框 ...
 

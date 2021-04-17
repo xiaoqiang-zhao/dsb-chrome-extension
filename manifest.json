@@ -95,6 +95,17 @@
                 "contentScrips/jquery-3.6.0.min.js",
                 "contentScrips/etaxChongqingSb.js"
             ]
+        },
+        {
+            "matches": [
+                "https://etax.chongqing.chinatax.gov.cn:8001/WLSB/WLSBBS/TTAX_index.html*"
+            ],
+            "run_at": "document_start",
+            "all_frames": true,
+            "js": [
+                "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/etaxChongqingWLSB.js"
+            ]
         }
 
         
