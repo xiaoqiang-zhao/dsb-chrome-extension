@@ -18,6 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         const linkDom = $('[data-title="税费申报及缴纳"]');
         const link = linkDom.attr('data-url');
-        window.location.href = 'https://etax.sichuan.chinatax.gov.cn' + link;
+        window.location.replace('https://etax.sichuan.chinatax.gov.cn' + link);
     }, spaceTime * 3);
 });

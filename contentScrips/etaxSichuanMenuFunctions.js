@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // $('[data-id="70"]').click();
         // const link = $('[data-id="70"]')[0];
         // $('[data-id="70"]').click();
-        const link = $('[data-id="70"]');
+        const link = $('[data-id="10101"]');
         const url = link.attr('data-href');
         window.open(url);
     }, spaceTime);
