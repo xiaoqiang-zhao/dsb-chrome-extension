@@ -3,86 +3,58 @@
  */
 // 间隔时间 800 毫秒
 const spaceTime = 3000;
+let i = 1;
 
 document.addEventListener('DOMContentLoaded', function() {
     // 展示 “我要办税” Tab 下的图标内容
     setTimeout(() => {
+        $('#myTab li').eq(0).removeClass('active');
+        $('#myTab li').eq(1).addClass('active');
         $('#wdxx').removeClass('active');
         $('#wybs').addClass('active');
     }, spaceTime);
 
+    // mouseover 税费申报及缴纳，需要与后台交互数据，悬浮框中的数据是异步加载的
     setTimeout(() => {
-        $('#wybs .wybs_line .wybs_list').eq(2).mouseover(); // .children('.tc_xxbg').css('display', 'block');
-    }, spaceTime * 2);
+        let event = new CustomEvent('mouseover', { bubbles: true, cancelable: true });
+        const div = document.getElementById('112005');
+        div.dispatchEvent(event);
+    }, spaceTime * ++i);
 
+    // 调出悬浮框
     setTimeout(() => {
-        // 跳转企业所得税
-        // $.ajax({
-        //     type: 'post',
-        //     data: 'postData={"fqxdm":"112005","ctrl":"WBLoginCtrl_queryYhQxTree"}',
-        //     url: 'ajax.sword?ctrl=WBLoginCtrl_queryYhQxTree',
-        //     dataType: "json",
-        //     success(resData) {
-        //         const data = JSON.parse(resData.data[0].value)[7];
-    
-        //         $.ajax({
-        //             type: 'post',
-        //             data: {"url": 'null', "wbxtDm": data.wbxtDm, "qxDm" : data.qxDm},
-        //             url: '/download.sword?ctrl=LogindesCtrl_queryKeyValue',
-        //             dataType: "json",
-        //             success (resData) {
-        //                 const keyValue = resData.key;
-        //                 let reUrl = resData.reUrl;
-        //                 const param = "cssParam=" + encodeURIComponent(keyValue) + "&xtBz=WSBS&wbxtDm=" + data.wbxtDm + "&";
-        //                 reUrl += "&" + param + "r=" + Math.random();
-    
-        //                 const h1 = screen.availHeight - 40;
-        //                 const w1 = screen.availWidth;
-    
-        //                 window.open(decodeURI(reUrl), "", "height=" + h1 + ",width=" + w1 + ",top=0,left=0,toolbar=no,menubar=no,scrollbars=yes,resizable=yes,location=no,status=no");
-        //             }
-        //         });
-        //     }
-        // });
-        // 跳转“增值税小规模纳税人申报”
-        $.ajax({
-            type: 'post',
-            data: 'postData={"fqxdm":"112005","ctrl":"WBLoginCtrl_queryYhQxTree"}',
-            url: 'ajax.sword?ctrl=WBLoginCtrl_queryYhQxTree',
-            dataType: "json",
-            success(resData) {
-                const list = JSON.parse(resData.data[0].value);
-                let data;
-                list.forEach((item, index) => {
-                    if (item.qxMs === '增值税小规模纳税人申报') {
-                        data = item;
-                    }
-                });
-    
-                $.ajax({
-                    type: 'post',
-                    data: {"url": 'null', "wbxtDm": data.wbxtDm, "qxDm" : data.qxDm},
-                    url: '/download.sword?ctrl=LogindesCtrl_queryKeyValue',
-                    dataType: "json",
-                    success (resData) {
-                        const keyValue = resData.key;
-                        let reUrl = resData.reUrl;
-                        const param = "cssParam=" + encodeURIComponent(keyValue) + "&xtBz=WSBS&wbxtDm=" + data.wbxtDm + "&";
-                        reUrl += "&" + param + "r=" + Math.random();
-    
-                        const h1 = screen.availHeight - 40;
-                        const w1 = screen.availWidth;
-    
-                        window.open(decodeURI(reUrl), "", "height=" + h1 + ",width=" + w1 + ",top=0,left=0,toolbar=no,menubar=no,scrollbars=yes,resizable=yes,location=no,status=no");
+        $('#112005 .tc_xxbg').show();
+    }, spaceTime * ++i);
+
+    // 跳转
+    setTimeout(() => {
+        chrome.storage.sync.get('taskData', ({
+            taskData
+        }) => {
+            let currentTaskData;
+            if (taskData && Array.isArray(taskData.list) && taskData.list.length > 0) {
+                taskData.list.some(item => {
+                    if (item.status === '待执行') {
+                        currentTaskData = item;
                     }
                 });
             }
+            if (currentTaskData) {
+                if (currentTaskData.taxesType === '小规模纳税人增值税') {
+                    $('#112005 .tc_xxbg > div > a')[2].click();
+                }
+                else if (currentTaskData.taxesType === '所得税') {
+                    $('#112005 .tc_xxbg > div > a')[5].click();
+                }
+            }
         });
-    }, spaceTime * 3);
+        // $('#112005 .tc_xxbg > div > a')[1].click();
 
-    // setTimeout(() => {
-    //     const linkDom = $('[data-title="税费申报及缴纳"]');
-    //     const link = linkDom.attr('data-url');
-    //     window.location.href = 'https://etax.sichuan.chinatax.gov.cn/' + link;
-    // }, spaceTime * 3);
+
+    }, spaceTime * ++i);
 });
+
+// 跳转到: 一般纳税人 增值税报销
+function jumpYBZ() {
+
+}

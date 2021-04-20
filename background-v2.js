@@ -6,7 +6,27 @@
 const spaceTime = 30;
 let target;
 
+// 不同地区的税务局网站
+const regionTypeUrlMap = [
+    // 四川
+    'https://etax.sichuan.chinatax.gov.cn',
+    // 重庆
+    'https://etax.chongqing.chinatax.gov.cn'
+];
+
 chrome.runtime.onMessage.addListener((request, sender) => {
+    // 初始化 popup
+    if (request.name === 'createTaskList') {
+        chrome.action.setBadgeText({
+            text: request.data.list.length.toString()
+        });
+
+        chrome.tabs.create({
+            url: regionTypeUrlMap[request.data.regionType],
+            active: true
+        });
+    }
+
     target = {
         extensionId: chrome.runtime.id,
         tabId: sender.tab.id
@@ -17,6 +37,9 @@ chrome.runtime.onMessage.addListener((request, sender) => {
     }
     else if (request.name === 'click') {
         click(request);
+    }
+    else if (request.name === 'closeTab') {
+        closeTab();
     }
 });
 
@@ -45,7 +68,25 @@ function click(data) {
     attach(() => {
         mousePressed(data, () => {
             mouseReleased(data);
+            detach();
         });
+    });
+}
+
+/**
+ * 关闭当前浏览器 tab
+ */
+function closeTab() {
+    // debugger
+    // attach(() => {
+    //     chrome.tabs.getCurrent(tab => {
+    //         debugger
+    //         chrome.tabs.remove();
+    //     });
+    // });
+
+    chrome.tabs.getCurrent(tab => {
+        debugger
     });
 }
 
@@ -57,6 +98,10 @@ function attach(cb) {
         }
         cb & cb();
     });
+}
+
+function detach() {
+    chrome.debugger.detach(target);
 }
 
 function mousePressed(data, cb) {

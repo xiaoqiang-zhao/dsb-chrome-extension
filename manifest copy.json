@@ -95,50 +95,6 @@
                 "contentScrips/jquery-3.6.0.min.js",
                 "contentScrips/etaxSichuanSb.js"
             ]
-        },
-        {
-            "matches": [
-                "https://etax.chongqing.chinatax.gov.cn:8001/WLSB/WLSBBS/TTAX_index.html*"
-            ],
-            "run_at": "document_start",
-            "all_frames": true,
-            "js": [
-                "contentScrips/jquery-3.6.0.min.js",
-                "contentScrips/etaxChongqingWLSB.js"
-            ]
-        },
-        {
-            "matches": [
-                "https://etax.sichuan.chinatax.gov.cn/sbzx-web/apps/views/sb_ybnsr_201905/sb_ybnsr.html*"
-            ],
-            "run_at": "document_start",
-            "all_frames": true,
-            "js": [
-                "contentScrips/jquery-3.6.0.min.js",
-                "contentScrips/etaxSichuanTaxationTable.js"
-            ]
-        },
-        {
-            "matches": [
-                "https://etax.sichuan.chinatax.gov.cn/sbzx-web/apps/views/sb_ybnsr_ybjc/zzsybnsrYbjc.html*"
-            ],
-            "run_at": "document_start",
-            "all_frames": true,
-            "js": [
-                "contentScrips/jquery-3.6.0.min.js",
-                "contentScrips/etaxSichuanCreateTable.js"
-            ]
-        },
-        {
-            "matches": [
-                "https://etax.sichuan.chinatax.gov.cn/sbzx-web/apps/views/sb_fjs_202006/sb_fjs.html*"
-            ],
-            "run_at": "document_start",
-            "all_frames": true,
-            "js": [
-                "contentScrips/jquery-3.6.0.min.js",
-                "contentScrips/etaxSichuanSbzx.js"
-            ]
         }
     ],
     "background": {

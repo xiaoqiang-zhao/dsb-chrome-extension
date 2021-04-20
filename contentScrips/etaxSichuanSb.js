@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, spaceTime * ++i);
 
-    // ????
+    // 根据《财政部 税务总局关于支持新型冠状病毒感染的肺炎疫情防控有关捐赠税收政策的公告》
     setTimeout(() => {
         const btn = $('#mini-185 span');
         if (btn.length > 0) {
@@ -79,8 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
         $('#gjxzhjzhy .mini-checkboxlist-item').eq(1).find('input')[0].click();
     }, spaceTime * ++i);
 
-    // i = 300000000000;
-    
     // 打开  第一个 Tab 的 第一个弹框
     setTimeout(() => {
         // const btns = $('.txt-indent-2 span');
@@ -96,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         checketbox.dispatchEvent(ev);
         checketbox.click();
+
     }, spaceTime * ++i);
 
     // 选中后点击单元格
@@ -105,6 +104,10 @@ document.addEventListener('DOMContentLoaded', function() {
             bubbles: true,
             cancelable: true
         });
+        // const blurEvent = new CustomEvent('focusout', {
+        //     bubbles: true,
+        //     cancelable: true
+        // });
         $('#mini-grid-table-bodyjmGrid_7').find('tr').eq(2).find('td')[4].dispatchEvent(ev);
         $('#mini-grid-table-bodyjmGrid_7').find('tr').eq(2).find('td')[4].click();
 
@@ -142,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         checketbox.dispatchEvent(ev);
         checketbox.click();
+
     }, spaceTime * ++i);
 
     // 选中后点击单元格
@@ -183,22 +187,6 @@ document.addEventListener('DOMContentLoaded', function() {
         $('.txt-indent-2 span')[2].click();
     }, spaceTime * ++i);
 
-    // 选中
-    setTimeout(() => {
-        const checketbox = $('#mini-grid-table-bodyjmGrid_13 tr').eq(1).find('input')[0];
-        let ev = new CustomEvent('mousedown', {
-            bubbles: true,
-            cancelable: true
-        });
-        checketbox.dispatchEvent(ev);
-        checketbox.click();
-    }, spaceTime * ++i);
-
-    // 关闭弹框
-    setTimeout(() => {
-        $('#mini-187')[0].click();
-    }, spaceTime * ++i);
-
     // 点击保存
     setTimeout(() => {
         $('#jmWin_13 .btn-blue')[0].click();
@@ -236,7 +224,6 @@ document.addEventListener('DOMContentLoaded', function() {
         $('#003_5_7').val(1);
     }, spaceTime * ++i);
 
-    
     // 下拉框选值
     setTimeout(() => {
         // 用事件模拟
@@ -275,12 +262,8 @@ document.addEventListener('DOMContentLoaded', function() {
         $('#sb_save')[0].click();
     }, spaceTime * ++i);
 
-    // 关闭弹框
     setTimeout(() => {
-        $('#mini-188')[0].click();
-    }, spaceTime * ++i);
-    setTimeout(() => {
-        $('#mini-191')[0].click();
+        $('#mini-191').click();
     }, spaceTime * ++i);
 });
 

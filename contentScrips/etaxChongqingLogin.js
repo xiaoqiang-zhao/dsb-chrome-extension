@@ -46,7 +46,6 @@ function doLogin() {
     });
     // 破解验证码
 
-    
     // 模拟点击登录按钮
     setTimeout(() => {
         $('#qyLogin').click();

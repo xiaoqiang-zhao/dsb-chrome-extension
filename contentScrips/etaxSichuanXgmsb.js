@@ -3,89 +3,64 @@
  */
 // 间隔时间 800 毫秒
 const spaceTime = 3000;
+let i = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 小规模纳税人
+    // 点击“确定按钮，文字: ”系统检测到您上次填写了申报表，点击确定还原上次填写的数据，点击取消重新填写申报表！
     setTimeout(() => {
         $('#mini-39 span').click();
-    }, spaceTime * 3);
+    }, spaceTime * ++i);
 
+    // ????????
     setTimeout(() => {
-        // $('#mini-40 .btn-blue').click();
-
-        // const link = $('#mini-40 .btn-blue')[0];
-        // chrome.runtime.sendMessage({
-        //     name: 'click',
-        //     x: getElementLeft(link) + 3,
-        //     y: getElementTop(link) + 3
-        // });
-        // setTimeout(() => {
-        //     chrome.runtime.sendMessage({
-        //         name: 'click',
-        //         x: 1,
-        //         y: 1
-        //     });
-        // }, 300);
         $('#mini-40').remove();
         $('.mini-fixed').remove();
-    }, spaceTime * 4);
+    }, spaceTime * ++i);
 
+    // 贴换到第二个 tab
     setTimeout(() => {
-        // $('#001_12_6').val('101');
         $('.mini-tabs-header td').eq(3).click();
-    }, spaceTime * 5);
+    }, spaceTime * ++i);
 
+    // 贴换到第三个 tab
     setTimeout(() => {
         $('.mini-tabs-header td').eq(5).click();
-    }, spaceTime * 6);
-
-    // setTimeout(() => {
-    //     const input = $('#jm6 input')[0];
-
-    //     chrome.runtime.sendMessage({
-    //         name: 'inputText',
-    //         text: '0001011705|SXA031900839|个人出租住房应按照5%的征收率减按1.5%计算应纳增值税|《财政部 国家税务总局关于全面推开营业税改征增值税试点的通知》 财税〔2016〕36号附件2第一条第（九）款第6项',
-    //         x: getElementLeft(input) + 5,
-    //         y: getElementTop(input) + 5
-    //     });
-    //     setTimeout(() => {
-    //         chrome.runtime.sendMessage({
-    //             name: 'click',
-    //             x: 1,
-    //             y: 1
-    //         });
-    //     }, 300);
-    // }, spaceTime * 7);
+    }, spaceTime * ++i);
 
     setTimeout(() => {
         // 保存
         // $('#sb_tempSaveCheck').click();
-        
+
         // 申报
         // $('#sb_save').click();
         $('#sb_save')[0].click();
+    }, spaceTime * ++i);
 
-        // const btn = $('#sb_save')[0];
-        // chrome.runtime.sendMessage({
-        //     name: 'click',
-        //     x: getElementLeft(btn) + 5,
-        //     y: getElementTop(btn) + 5
-        // });
+    // 非必走流程: 您在申报表第2栏或第5栏填有数据 （点击弹框“确认”）
+    setTimeout(() => {
+        $('#mini-41 #mini-42')[0].click();
+        // 需要对外发消息 ***
+    }, spaceTime * ++i);
 
-        // $( "#sb_save" ).trigger( "click" );
-        
-        // $( "#btn-group" ).trigger( "click", {
-        //     id: 'sb_save'
-        // });
-        // $( "#btn-group" ).trigger( "click", $( "#sb_save" )[0]);
-        
-    }, spaceTime * 8);
+    // 非必走流程: 按照现行政策规定，小规模纳税人发生增值税应税销售行为，合计月销售额超过10万元（按季10万元） （点击弹框“否”）
+    setTimeout(() => {
+        $('#mini-46')[0].click();
+    }, spaceTime * ++i);
 
-    // setTimeout(() => {
+    // 非必走流程: 本期销售额已超免税标准，请继续申报 （点击弹框“确认”）
+    setTimeout(() => {
+        $('#mini-48')[0].click();
+    }, spaceTime * ++i);
 
-    // }, spaceTime * 8);
+    // 非必走流程: 确认提交您所申报的数据?，请继续申报 （点击弹框“确认”）
+    setTimeout(() => {
+        $('#mini-50')[0].click();
+    }, spaceTime * ++i);
 
-    
+    // 非必走流程: 您为定期定额户，请到“定期定额自行申报”模块申报附加税。（点击弹框“确认”）
+    setTimeout(() => {
+        $('#mini-53')[0].click();
+    }, spaceTime * ++i);
 });
 
 
