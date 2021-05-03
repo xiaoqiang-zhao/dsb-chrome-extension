@@ -234,12 +234,9 @@ function openTaxation(index) {
     return btns.eq(btnIndex);
 }
 
-
-
 function sleep(time) {
     return new Promise((resolve) => setTimeout(() => resolve(), time))
 }
-
 
 function getNode(node, fn, index = 0) {
     return new Promise((resolve, reject) => {

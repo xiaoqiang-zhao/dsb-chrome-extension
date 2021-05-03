@@ -139,6 +139,17 @@
                 "contentScrips/jquery-3.6.0.min.js",
                 "contentScrips/etaxSichuanSbzx.js"
             ]
+        },
+        {
+            "matches": [
+                "https://etax.sichuan.chinatax.gov.cn/yhs-web/cxzx/index.html*"
+            ],
+            "run_at": "document_start",
+            "all_frames": true,
+            "js": [
+                "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/etaxSichuanCxzx.js"
+            ]
         }
     ],
     "background": {
@@ -155,6 +166,6 @@
         "debugger"
     ],
     "host_permissions": [
-        "http://127.0.0.1:4000"
+        "http://127.0.0.1:7777"
     ]
 }
