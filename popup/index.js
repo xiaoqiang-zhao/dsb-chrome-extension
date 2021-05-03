@@ -5,12 +5,12 @@
 initTaskList();
 
 // 清除任务
-const btn = document.getElementById('chearTaskBtn');
-btn.addEventListener("click", () => {
+const chearTaskBtn = document.getElementById('chearTaskBtn');
+chearTaskBtn.addEventListener("click", () => {
     chrome.storage.sync.set({
         taskData: {
-            regionType: 1,
-            list: []
+            regionType: '',
+            taskList: []
         }
     }, () => {
         initTaskList();
@@ -24,7 +24,8 @@ function initTaskList() {
     chrome.storage.sync.get('taskData', ({
         taskData
     }) => {
-        const taskList = taskData.list;
+        const container = document.getElementById('task-container');
+        const taskList = taskData.taskList;
         let result = '';
         if (Array.isArray(taskList) && taskList.length > 0) {
             taskList.forEach(item => {
@@ -36,7 +37,7 @@ function initTaskList() {
                     </span>
                 </div>`;
             });
-            const container = document.getElementById('task-container');
+
             container.innerHTML = result;
         }
         else {

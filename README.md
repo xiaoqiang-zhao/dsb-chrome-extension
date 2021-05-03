@@ -20,8 +20,8 @@ https://www.kdocs.cn/l/ceCgUVTmyzSi
 
 ```js
 const data = {
-    regionType: 2,
-    list: [
+    regionType: 'sichuan/chongqing',
+    taskList: [
         {
             // 公司名
             companyName: '重庆妍协臣科技有限公司',

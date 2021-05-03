@@ -9,6 +9,14 @@
     },
     "content_scripts": [
         {
+            "des": "测试专用",
+            "matches": [
+                "http://127.0.0.1:7777/pages/task"
+            ],
+            "run_at": "document_end",
+            "js": ["contentScrips/init-task.js"]
+        },
+        {
             "matches": [
                 "http://127.0.0.1:7777/pages/upload-info/list"
             ],
@@ -22,6 +30,7 @@
             "run_at": "document_start",
             "js": [
                 "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/utiles.js",
                 "contentScrips/etaxSichuanLogin.js"
             ]
         },

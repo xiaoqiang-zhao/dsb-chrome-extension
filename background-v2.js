@@ -7,18 +7,18 @@ const spaceTime = 30;
 let target;
 
 // 不同地区的税务局网站
-const regionTypeUrlMap = [
+const regionTypeUrlMap = {
     // 四川
-    'https://etax.sichuan.chinatax.gov.cn',
+    sichuan: 'https://etax.sichuan.chinatax.gov.cn',
     // 重庆
-    'https://etax.chongqing.chinatax.gov.cn'
-];
+    chongqing: 'https://etax.chongqing.chinatax.gov.cn'
+};
 
 chrome.runtime.onMessage.addListener((request, sender) => {
     // 初始化 popup
     if (request.name === 'createTaskList') {
         chrome.action.setBadgeText({
-            text: request.data.list.length.toString()
+            text: request.data.taskList.length.toString()
         });
 
         chrome.tabs.create({
