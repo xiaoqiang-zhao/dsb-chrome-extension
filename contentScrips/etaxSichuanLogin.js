@@ -4,7 +4,8 @@
 // 间隔时间 800 毫秒
 const spaceTime = 3000;
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    const currentTaskData = await getCurrentTask();
     // 登录部分
     const loginBoxContainer = document.getElementById('login-box');
     // 判断是否在登陆页
@@ -12,19 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     // 判断是否有需要自动执行的任务
-    chrome.storage.sync.get('taskData', ({
-        taskData
-    }) => {
-        if (taskData && Array.isArray(taskData.list) && taskData.list.length > 0) {
-            let currentTaskData;
-            taskData.list.some(item => {
-                if (item.status === '待执行') {
-                    currentTaskData = item;
-                }
-            });
-            doLogin(loginBoxContainer, currentTaskData);
-        }
-    });
+    if (currentTaskData) {
+        // doLogin(loginBoxContainer, currentTaskData);
+        changeCurrentTaskStatus('done');
+    }
 });
 
 /**
@@ -95,28 +87,4 @@ function doLogin(loginBoxContainer, currentTaskData) {
     setTimeout(() => {
         $('.ant-btn-primary').click();
     }, spaceTime * 25);
-}
-
-function getElementLeft(element){
-    var actualLeft = element.offsetLeft;
-    var current = element.offsetParent;
-
-    while (current !== null){
-    　　actualLeft += current.offsetLeft;
-    　　current = current.offsetParent;
-    }
-
-    return actualLeft;
-}
-    
-function getElementTop(element){
-    var actualTop = element.offsetTop;
-    var current = element.offsetParent;
-
-    while (current !== null){
-    　　actualTop += current.offsetTop;
-    　　current = current.offsetParent;
-    }
-
-    return actualTop;
 }

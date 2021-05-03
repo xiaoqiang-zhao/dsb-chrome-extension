@@ -5,6 +5,7 @@
 const spaceTime = 3000;
 
 document.addEventListener('DOMContentLoaded', function() {
+    const currentTaskData = await getCurrentTask();
     setTimeout(() => {
         // 登录部分
         const btn = $('.loing.alert_click_show');

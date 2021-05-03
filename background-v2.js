@@ -41,6 +41,9 @@ chrome.runtime.onMessage.addListener((request, sender) => {
     else if (request.name === 'closeTab') {
         closeTab();
     }
+    else if (request.name === 'setBadgeText') {
+        setBadgeText(request.text);
+    }
 });
 
 /** 复合事件 **/
@@ -137,5 +140,11 @@ function mouseReleased(data) {
         // 输入框的坐标
         x: data.x,
         y: data.y
+    });
+}
+
+function setBadgeText(text) {
+    chrome.action.setBadgeText({
+        text: text
     });
 }
