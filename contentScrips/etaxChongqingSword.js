@@ -1,60 +1,61 @@
 /**
- * @file 重庆税务局 / 桌面(登录后的第一屏)
+ * @file 重庆税务局 / 桌面(登录后的第一屏)，负责任务的分发
  */
 // 间隔时间 800 毫秒
 const spaceTime = 3000;
 let i = 1;
 
-document.addEventListener('DOMContentLoaded', function() {
-    // 展示 “我要办税” Tab 下的图标内容
-    setTimeout(() => {
-        $('#myTab li').eq(0).removeClass('active');
-        $('#myTab li').eq(1).addClass('active');
-        $('#wdxx').removeClass('active');
-        $('#wybs').addClass('active');
-    }, spaceTime);
+document.addEventListener('DOMContentLoaded', async function() {
+    // 等该页面加载完成
+    await sleep();
 
-    // mouseover 税费申报及缴纳，需要与后台交互数据，悬浮框中的数据是异步加载的
-    setTimeout(() => {
-        let event = new CustomEvent('mouseover', { bubbles: true, cancelable: true });
-        const div = document.getElementById('112005');
-        div.dispatchEvent(event);
-    }, spaceTime * ++i);
+    // 判断是否有服务提醒弹窗需要关闭
+    const closeDialogBtn = $('.ui-dialog .submit_btn');
+    if (closeDialogBtn.length) {
+        closeDialogBtn.click();
+    }
 
-    // 调出悬浮框
-    setTimeout(() => {
-        $('#112005 .tc_xxbg').show();
-    }, spaceTime * ++i);
+    const currentTaskData = await getCurrentTask();
 
-    // 跳转
-    setTimeout(() => {
-        chrome.storage.sync.get('taskData', ({
-            taskData
-        }) => {
-            let currentTaskData;
-            if (taskData && Array.isArray(taskData.list) && taskData.list.length > 0) {
-                taskData.list.some(item => {
-                    if (item.status === '待执行') {
-                        currentTaskData = item;
-                    }
-                });
-            }
-            if (currentTaskData) {
-                if (currentTaskData.taxesType === '小规模纳税人增值税') {
-                    $('#112005 .tc_xxbg > div > a')[2].click();
+    // 有待执行任务
+    if (currentTaskData) {
+        // 任务类型
+        if (currentTaskData.taskType === '增值税' || currentTaskData.taskType === '企业所得税') {
+            // 展示 “我要办税” Tab 下的图标内容
+            $('#myTab li').eq(0).removeClass('active');
+            $('#myTab li').eq(1).addClass('active');
+            $('#wdxx').removeClass('active');
+            $('#wybs').addClass('active');
+
+            // 等待页面渲染
+            await sleep(300);
+
+            // mouseover 税费申报及缴纳
+            let event = new CustomEvent('mouseover', { bubbles: true, cancelable: true });
+            const div = document.getElementById('112005');
+            div.dispatchEvent(event);
+
+            // 悬浮框中的数据需要异步加载
+            await sleep();
+
+            // 调出悬浮框
+            $('#112005 .tc_xxbg').show();
+
+            let aLink;
+            if (currentTaskData.taskType === '增值税') {
+                // 一般纳税人
+                if (currentTaskData.payTaxesType === 0) {
+                    aLink = $('#112005 .tc_xxbg > div > a')[1];
                 }
-                else if (currentTaskData.taxesType === '所得税') {
-                    $('#112005 .tc_xxbg > div > a')[5].click();
+                // 小规模纳税人
+                else if (currentTaskData.payTaxesType === 1) {
+                    aLink = $('#112005 .tc_xxbg > div > a')[2];
                 }
             }
-        });
-        // $('#112005 .tc_xxbg > div > a')[1].click();
-
-
-    }, spaceTime * ++i);
+            else if (currentTaskData.taskType === '企业所得税') {
+                aLink = $('#112005 .tc_xxbg > div > a')[5];
+            }
+            aLink.click();
+        }
+    }
 });
-
-// 跳转到: 一般纳税人 增值税报销
-function jumpYBZ() {
-
-}

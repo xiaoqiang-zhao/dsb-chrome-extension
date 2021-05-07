@@ -67,53 +67,12 @@
         
         {
             "matches": [
-                "https://etax.chongqing.chinatax.gov.cn/"
-            ],
-            "run_at": "document_start",
-            "js": [
-                "contentScrips/jquery-3.6.0.min.js",
-                "contentScrips/etaxChongqingLogin.js"
-            ]
-        },
-        {
-            "matches": [
-                "https://etax.chongqing.chinatax.gov.cn/sword*"
-            ],
-            "run_at": "document_start",
-            "js": [
-                "contentScrips/jquery-3.6.0.min.js",
-                "contentScrips/etaxChongqingSword.js"
-            ]
-        },
-        {
-            "matches": [
-                "https://wbjr.chongqing.chinatax.gov.cn:8888/sbzx-web/apps/views/sb_sdsA_yj_new_*"
-            ],
-            "run_at": "document_start",
-            "js": [
-                "contentScrips/jquery-3.6.0.min.js",
-                "contentScrips/etaxChongqingSb.js"
-            ]
-        },
-        {
-            "matches": [
                 "https://etax.sichuan.chinatax.gov.cn/sbzx-web/apps/views/sb_sdsA_yj_new_*"
             ],
             "run_at": "document_start",
             "js": [
                 "contentScrips/jquery-3.6.0.min.js",
                 "contentScrips/etaxSichuanSb.js"
-            ]
-        },
-        {
-            "matches": [
-                "https://etax.chongqing.chinatax.gov.cn:8001/WLSB/WLSBBS/TTAX_index.html*"
-            ],
-            "run_at": "document_start",
-            "all_frames": true,
-            "js": [
-                "contentScrips/jquery-3.6.0.min.js",
-                "contentScrips/etaxChongqingWLSB.js"
             ]
         },
         {
@@ -158,6 +117,50 @@
             "js": [
                 "contentScrips/jquery-3.6.0.min.js",
                 "contentScrips/etaxSichuanCxzx.js"
+            ]
+        },
+
+        {
+            "matches": [
+                "https://etax.chongqing.chinatax.gov.cn/"
+            ],
+            "run_at": "document_start",
+            "js": [
+                "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/utiles.js",
+                "contentScrips/etaxChongqingLogin.js"
+            ]
+        },
+        {
+            "matches": [
+                "https://etax.chongqing.chinatax.gov.cn/sword*"
+            ],
+            "run_at": "document_start",
+            "js": [
+                "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/utiles.js",
+                "contentScrips/etaxChongqingSword.js"
+            ]
+        },
+        {
+            "matches": [
+                "https://wbjr.chongqing.chinatax.gov.cn:8888/sbzx-web/apps/views/sb_sdsA_yj_new_*"
+            ],
+            "run_at": "document_start",
+            "js": [
+                "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/etaxChongqingSb.js"
+            ]
+        },
+        {
+            "matches": [
+                "https://etax.chongqing.chinatax.gov.cn:8001/WLSB/WLSBBS/TTAX_index.html*"
+            ],
+            "run_at": "document_start",
+            "all_frames": true,
+            "js": [
+                "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/etaxChongqingWLSB.js"
             ]
         }
     ],
