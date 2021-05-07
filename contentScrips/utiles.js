@@ -1,11 +1,17 @@
 /**
  * 工具函数库
  */
+// 间隔时间
+const spaceTimes = 3000;
 
 const statusMap = {
     doing: '执行中',
     done: '完成'
 };
+
+async function sleep(time = spaceTimes) {
+    return new Promise(resolve => setTimeout(() => resolve(), time))
+}
 
 /**
  * 获取当前待执行或执行中任务

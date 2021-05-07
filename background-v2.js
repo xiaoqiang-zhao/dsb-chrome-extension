@@ -33,7 +33,7 @@ chrome.runtime.onMessage.addListener((request, sender) => {
     };
 
     if (request.name === 'inputText') {
-        inputText(request);
+        inputText(request.data);
     }
     else if (request.name === 'click') {
         click(request);
@@ -55,8 +55,8 @@ chrome.runtime.onMessage.addListener((request, sender) => {
 function inputText(data) {
     attach(() => {
         mousePressed(data, () => {
-            insertText(data, () => {
-                mouseReleased(data);
+            mouseReleased(data, () => {
+                insertText(data, () => detach());
             });
         });
     });
@@ -99,7 +99,7 @@ function attach(cb) {
         if (chrome.runtime.lastError) {
             console.log(chrome.runtime.lastError);
         }
-        cb & cb();
+        cb && cb();
     });
 }
 
@@ -119,7 +119,7 @@ function mousePressed(data, cb) {
         if (chrome.runtime.lastError) {
             console.log(chrome.runtime.lastError);
         }
-        cb & cb();
+        cb && cb();
     });
 }
 
@@ -130,16 +130,18 @@ function insertText(data, cb) {
         if (chrome.runtime.lastError) {
             console.log(chrome.runtime.lastError);
         }
-        cb & cb();
+        cb && cb();
     });
 }
 
-function mouseReleased(data) {
+function mouseReleased(data, cb) {
     chrome.debugger.sendCommand(target, "Input.dispatchMouseEvent", {
         type: 'mouseReleased',
         // 输入框的坐标
         x: data.x,
         y: data.y
+    }, () => {
+        cb && cb();
     });
 }
 

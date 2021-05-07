@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
     // 判断是否有需要自动执行的任务
     if (currentTaskData) {
-        // doLogin(loginBoxContainer, currentTaskData);
-        changeCurrentTaskStatus('done');
+        await sleep();
+        doLogin(loginBoxContainer, currentTaskData);
+        changeCurrentTaskStatus('doing');
     }
 });
 
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async function() {
  * @param {Object} loginBoxContainer 登录弹框 Dom 容器对象
  * @param {Object} currentTaskData 任务数据
  */
-function doLogin(loginBoxContainer, currentTaskData) {
+ async function doLogin(loginBoxContainer, currentTaskData) {
     loginBoxContainer.style.display = 'block';
 
     const loginBox = document.getElementsByClassName('loginBox')[0];
@@ -34,24 +35,44 @@ function doLogin(loginBoxContainer, currentTaskData) {
     loginBox.style.margin = 0;
 
     // 等待页面渲染完成
-    setTimeout(() => {
-        const userName = document.getElementById('userName');
-        // 登陆第一步: 社会信用代码 + 密码
-        chrome.runtime.sendMessage({
-            name: 'loginSichuan',
-            position: {
-                x: getElementLeft(userName) + 15,
-                y: getElementTop(userName) + 15
-            },
-            currentTaskData: currentTaskData,
-            text: ''
-        });
-    }, spaceTime);
+    await sleep(300);
+
+    // 登陆第一步: 社会信用代码
+    const userName = document.getElementById('userName');
+    chrome.runtime.sendMessage({
+        name: 'inputText',
+        data: {
+            x: getElementLeft(userName) + 15,
+            y: getElementTop(userName) + 15,
+            text: currentTaskData.creditCode
+        }
+    });
+
+    // 失去焦点，触发异步
+    await sleep(300);
+    userName.blur();
+
+    // 登陆第二步: 密码
+    await sleep();
+    const passWord = document.getElementById('passWord');
+    chrome.runtime.sendMessage({
+        name: 'inputText',
+        data: {
+            x: getElementLeft(passWord) + 15,
+            y: getElementTop(passWord) + 15,
+            text: currentTaskData.password
+        }
+    });
+
+    await sleep(300);
+    $('.ant-select-enabled').click();
+
+    await sleep(300000000000000000);
 
     // 等待表单填写完成 和 异步数据加载及渲染完成
     // 点出下拉菜单
     setTimeout(() => {
-        $('.ant-select-enabled').click();
+        
     }, spaceTime * 4);
 
     // 点下拉菜单的某一项
