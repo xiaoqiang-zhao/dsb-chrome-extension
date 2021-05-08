@@ -1,11 +1,37 @@
 /**
- * @file 重庆税务局 / 增值税
+ * @file 重庆税务局 / (小规模纳税人)增值税
  */
 // 间隔时间 800 毫秒
 const spaceTime = 3000;
 let i = 1;
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    // 等该页面加载完成
+    await sleep();
+
+    // 增值税为一个季度填报一次，判断当前是否需要
+    const content = $('.ui_dialog .ui_content');
+    if (content.length && content.html().includes('本月无需申报')) {
+        // 发送完成消息
+        // 两种理想方案尝试失败
+        // chrome.runtime.sendMessage({
+        //     name: 'etaxWebSiteLogout',
+        //     isTransmit: true
+        // });
+        // window.opener.postMessage({
+        //     name: 'etaxWebSiteLogout'
+        // });
+
+        // 轮训替代方案
+        changeCurrentTaskStatus('logout');
+
+        // 关闭页面
+        closeCurrentPage();
+        return;
+    }
+
+    // 本月无需申报
+
 
     // 关闭页面
     // setTimeout(() => {
@@ -76,28 +102,3 @@ document.addEventListener('DOMContentLoaded', function() {
     //     });
     // }, spaceTime * i++);
 });
-
-/** 工具函数 **/
-function getElementLeft(element){
-    var actualLeft = element.offsetLeft;
-    var current = element.offsetParent;
-
-    while (current !== null){
-    　　actualLeft += current.offsetLeft;
-    　　current = current.offsetParent;
-    }
-
-    return actualLeft;
-}
-    
-function getElementTop(element){
-    var actualTop = element.offsetTop;
-    var current = element.offsetParent;
-
-    while (current !== null){
-    　　actualTop += current.offsetTop;
-    　　current = current.offsetParent;
-    }
-
-    return actualTop;
-}

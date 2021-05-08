@@ -1,9 +1,6 @@
 /**
  * @file 重庆税务局 / 桌面(登录后的第一屏)，负责任务的分发
  */
-// 间隔时间 800 毫秒
-const spaceTime = 3000;
-let i = 1;
 
 document.addEventListener('DOMContentLoaded', async function() {
     // 等该页面加载完成
@@ -59,3 +56,20 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     }
 });
+
+async function listener() {
+    const currentTaskData = await getCurrentTask();
+    if (currentTaskData && currentTaskData.status === 'logout') {
+        changeCurrentTaskStatus('done');
+        // 退出
+        $('#out')[0].click();
+        await sleep(30);
+        // 确认退出
+        $('#mb_btn_ok')[0].click();
+    }
+    else {
+        await sleep();
+        listener();
+    }
+}
+listener();

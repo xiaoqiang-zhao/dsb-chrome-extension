@@ -14,6 +14,10 @@ chearTaskBtn.addEventListener("click", () => {
         }
     }, () => {
         initTaskList();
+
+        chrome.action.setBadgeText({
+            text: ''
+        });
     });
 });
 
@@ -32,8 +36,8 @@ function initTaskList() {
                 result += `
                 <div class="item">
                     ${item.companyName}
-                    <span class="${item.styleClass}">
-                        ${item.status}
+                    <span class="${item.status}">
+                        ${item.statusText}
                     </span>
                 </div>`;
             });

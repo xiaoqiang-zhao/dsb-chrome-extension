@@ -5,8 +5,12 @@
 const spaceTimes = 3000;
 
 const statusMap = {
+    todo: '待执行',
     doing: '执行中',
-    done: '完成'
+    // 操作完成退出中，切换到下一个中 (页面之间通信)
+    logout: '退出中',
+    // 任务完成
+    done: '已完成'
 };
 
 async function sleep(time = spaceTimes) {
@@ -24,7 +28,7 @@ async function getCurrentTask() {
             let currentTaskData = null;
             if (taskData && Array.isArray(taskData.taskList) && taskData.taskList.length > 0) {
                 taskData.taskList.some(item => {
-                    if (item.status === '待执行'|| item.status === '执行中') {
+                    if (item.status !== 'done') {
                         currentTaskData = item;
                         return true;
                     }
@@ -35,15 +39,20 @@ async function getCurrentTask() {
     });
 }
 
+/**
+ * 改变任务状态
+ *
+ * @param {string} status 状态 todo/doing/done
+ */
 function changeCurrentTaskStatus(status) {
     chrome.storage.sync.get('taskData', ({
         taskData
     }) => {
         if (taskData && Array.isArray(taskData.taskList) && taskData.taskList.length > 0) {
             taskData.taskList.some(item => {
-                if (item.status === '待执行'|| item.status === '执行中') {
-                    item.styleClass = status;
-                    item.status = statusMap[status];
+                if (item.status !== 'done') {
+                    item.status = status;
+                    item.statusText = statusMap[status];
                     return true;
                 }
             });
@@ -54,14 +63,18 @@ function changeCurrentTaskStatus(status) {
                 setBadgeText(taskData);
             });
         }
-        
     });
 }
 
+/**
+ * 改变插件图标上的角标
+ *
+ * @param {Object} taskData 任务数据
+ */
 function setBadgeText(taskData) {
     let count = 0;
     taskData.taskList.forEach(item => {
-        if (item.status === '待执行'|| item.status === '执行中') {
+        if (item.status !== 'done') {
             count++;
         }
     });
@@ -73,7 +86,12 @@ function setBadgeText(taskData) {
     });
 }
 
-
+/**
+ * 获取横坐标
+ *
+ * @param {Object} element 元素对象
+ * @returns {Number} 页面上的左坐标
+ */
 function getElementLeft(element){
     var actualLeft = element.offsetLeft;
     var current = element.offsetParent;
@@ -85,7 +103,13 @@ function getElementLeft(element){
 
     return actualLeft;
 }
-    
+
+/**
+ * 获取纵坐标
+ *
+ * @param {Object} element 元素对象
+ * @returns {Number} 纵坐标
+ */
 function getElementTop(element){
     var actualTop = element.offsetTop;
     var current = element.offsetParent;
@@ -96,4 +120,24 @@ function getElementTop(element){
     }
 
     return actualTop;
+}
+
+/**
+ * 关闭页面
+ */
+function closeCurrentPage() {
+	const ua = window.navigator.userAgent;
+	if (ua.indexOf('MSIE') > 0) {
+		if (ua.indexOf('MSIE 6.0') > 0) {
+			window.opener = null;
+			window.close();
+		} else {
+			window.open('', '_top');
+			window.top.close();
+		}
+	} else {
+		window.opener = null;
+		window.open('', '_self', '');
+		window.close();
+	}
 }

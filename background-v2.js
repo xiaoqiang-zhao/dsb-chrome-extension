@@ -26,11 +26,13 @@ chrome.runtime.onMessage.addListener((request, sender) => {
             active: true
         });
     }
-
-    target = {
-        extensionId: chrome.runtime.id,
-        tabId: sender.tab.id
-    };
+    // 从 popup 发出的事件没有 sender.tab
+    if (sender.tab) {
+        target = {
+            extensionId: chrome.runtime.id,
+            tabId: sender.tab.id
+        };
+    }
 
     if (request.name === 'inputText') {
         inputText(request.data);
@@ -80,14 +82,6 @@ function click(data) {
  * 关闭当前浏览器 tab
  */
 function closeTab() {
-    // debugger
-    // attach(() => {
-    //     chrome.tabs.getCurrent(tab => {
-    //         debugger
-    //         chrome.tabs.remove();
-    //     });
-    // });
-
     chrome.tabs.getCurrent(tab => {
         debugger
     });

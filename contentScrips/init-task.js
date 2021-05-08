@@ -29,8 +29,8 @@ function createTaskList(taskListDataInput) {
     const data = JSON.parse(value);
 
     data.taskList.forEach(item => {
-        item.status = '待执行';
-        item.styleClass = 'todo';
+        item.statusText = '待执行';
+        item.status = 'todo';
     });
 
     // 将任务数据放入 storage 中
