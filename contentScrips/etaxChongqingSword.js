@@ -42,7 +42,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (currentTaskData.taskType === '增值税') {
                 // 一般纳税人
                 if (currentTaskData.payTaxesType === 0) {
-                    aLink = $('#112005 .tc_xxbg > div > a')[1];
+                    // aLink = $('#112005 .tc_xxbg > div > a')[1];
+                    window.open('https://etax.chongqing.chinatax.gov.cn:8001/WLSB/WLSBBS/TTAX_index.html?MODULE=TTAX_SB_1and9.html');
                 }
                 // 小规模纳税人
                 else if (currentTaskData.payTaxesType === 1) {

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     // 等该页面加载完成
     await sleep();
 
-    // 增值税为一个季度填报一次，判断当前是否需要
+    // 小规模纳税人 增值税为一个季度填报一次，判断当前是否需要
     const content = $('.ui_dialog .ui_content');
     if (content.length && content.html().includes('本月无需申报')) {
         // 发送完成消息

@@ -121,6 +121,7 @@
         },
 
         {
+            "des": "登录",
             "matches": [
                 "https://etax.chongqing.chinatax.gov.cn/"
             ],
@@ -132,6 +133,7 @@
             ]
         },
         {
+            "des": "桌面(登录后的第一屏)，起分发任务的作用",
             "matches": [
                 "https://etax.chongqing.chinatax.gov.cn/sword*"
             ],
@@ -153,15 +155,42 @@
             ]
         },
         {
+            "des": "一般纳税人增值税 - 中间跳转页- 一表集成申报 (暂时不用)",
             "matches": [
-                "https://etax.chongqing.chinatax.gov.cn:8001/WLSB/WLSBBS/TTAX_index.html*"
+                "https://etax.chongqing.chinatax.gov.cn:8001/WLSB/WLSBBS/TTAX_index.html?MODULE=TTAX_WBZR.html&szlx=1*"
             ],
             "run_at": "document_start",
             "all_frames": true,
             "js": [
                 "contentScrips/jquery-3.6.0.min.js",
                 "contentScrips/utiles.js",
-                "contentScrips/etaxChongqingWLSB.js"
+                "contentScrips/etaxChongqingWLSB1.js"
+            ]
+        },
+        {
+            "des": "一般纳税人增值税 - 表格填写页",
+            "matches": [
+                "https://etax.chongqing.chinatax.gov.cn:8001/WLSB/WLSBBS/TTAX_index.html?MODULE=TTAX_SB_1and9.html"
+            ],
+            "run_at": "document_start",
+            "all_frames": true,
+            "js": [
+                "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/utiles.js",
+                "contentScrips/etaxChongqing1and9.js"
+            ]
+        },
+        {
+            "des": "小规模纳税人增值税",
+            "matches": [
+                "https://etax.chongqing.chinatax.gov.cn:8001/WLSB/WLSBBS/TTAX_index.html?MODULE=TTAX_WBZR.html&szlx=2*"
+            ],
+            "run_at": "document_start",
+            "all_frames": true,
+            "js": [
+                "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/utiles.js",
+                "contentScrips/etaxChongqingWLSB2.js"
             ]
         }
     ],
