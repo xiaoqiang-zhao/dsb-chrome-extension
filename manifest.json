@@ -52,6 +52,7 @@
             "run_at": "document_start",
             "js": [
                 "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/utiles.js",
                 "contentScrips/etaxSichuanMenuFunctions.js"
             ]
         },
@@ -110,6 +111,7 @@
             ]
         },
         {
+            "des": "批量核对",
             "matches": [
                 "https://etax.sichuan.chinatax.gov.cn/yhs-web/cxzx/index.html*"
             ],
@@ -117,6 +119,7 @@
             "all_frames": true,
             "js": [
                 "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/utiles.js",
                 "contentScrips/etaxSichuanCxzx.js"
             ]
         },
