@@ -41,6 +41,7 @@
             "run_at": "document_start",
             "js": [
                 "contentScrips/jquery-3.6.0.min.js",
+                "contentScrips/utiles.js",
                 "contentScrips/etaxSichuanDesk.js"
             ]
         },
@@ -208,6 +209,7 @@
         "debugger"
     ],
     "host_permissions": [
-        "http://127.0.0.1:7777"
+        "http://127.0.0.1:7777",
+        "http://121.89.205.96:8877"
     ]
 }

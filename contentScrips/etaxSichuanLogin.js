@@ -1,8 +1,6 @@
 /**
  * @file 四川税务局 / 登录
  */
-// 间隔时间 800 毫秒
-const spaceTime = 3000;
 
 document.addEventListener('DOMContentLoaded', async function() {
     const currentTaskData = await getCurrentTask();
@@ -63,49 +61,59 @@ document.addEventListener('DOMContentLoaded', async function() {
             text: currentTaskData.password
         }
     });
+    passWord.blur();
 
-    await sleep(300);
+    // await sleep(300);
     $('.ant-select-enabled').click();
 
-    await sleep(300000000000000000);
-
-    // 等待表单填写完成 和 异步数据加载及渲染完成
-    // 点出下拉菜单
-    setTimeout(() => {
-        
-    }, spaceTime * 4);
-
     // 点下拉菜单的某一项
-    setTimeout(() => {
-        $('.ant-select-dropdown-menu-item').eq(1).click();
-    }, spaceTime * 5);
+    const list = $('.ant-select-dropdown-menu-item');
+    list.each((index, item) => {
+        currentTaskData.mobile
+        // 手机号后四位
+        const last = currentTaskData.mobile.slice(-4);
+        if (item.innerText.includes(last)) {
+            item.click();
+        }
+    });
 
     // 选择验证方式
-    setTimeout(() => {
-        const checkType = $('.row .ant-radio-group label').eq(0);
-        checkType.click();
-    }, spaceTime * 6);
+    await sleep();
+    const checkType = $('.row .ant-radio-group label').eq(0);
+    checkType.click();
 
     // 发送验证码
-    setTimeout(() => {
-        $('.row .ant-btn').eq(0).click();
-    }, spaceTime * 7);
+    await sleep();
+    $('.row .ant-btn').eq(0).click();
+    await sleep(30 * 1000);
 
-    // 填写验证码
-    setTimeout(() => {
-        $.ajax({
-            url: 'http://127.0.0.1:4000/api/get-check-code',
-            type: 'GET',
-            success(res) {
-                const code = JSON.parse(res).data;
-                $('#code').val(code);
+    const url = 'http://121.89.205.96:8877/api/app/getVerificationCode?phoneNum=' + currentTaskData.mobile;
+    const response = await fetch(url, {
+        data: {
+            phoneNum: currentTaskData.mobile
+        },
+        headers: {
+            "referrer": "https://baidu.com/",
+            "origin": "https://baidu.com/",
+        },
+        method: 'GET'
+    });
+    const res = await response.json();
+
+    if (res.data.verificationCode) {
+        // 填写验证码
+        const codeInput = $('#code')[0];
+        chrome.runtime.sendMessage({
+            name: 'inputText',
+            data: {
+                x: getElementLeft(codeInput) + 15,
+                y: getElementTop(codeInput) + 15,
+                text: res.data.verificationCode
             }
-        })
-    // }, spaceTime);
-    }, spaceTime * 20);
+        });
 
-    // 登录
-    setTimeout(() => {
+        // 登录
+        await sleep(300);
         $('.ant-btn-primary').click();
-    }, spaceTime * 25);
+    }
 }
